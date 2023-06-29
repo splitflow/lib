@@ -18,6 +18,10 @@
         "dist/**/*.d.ts"
     ],
     "exports": {
+        "./style": {
+            "import": "./dist/style/index.js",
+            "require": "./dist/style/index.cjs"
+        },
         "./config": {
             "import": "./dist/config/index.js",
             "require": "./dist/config/index.cjs"
@@ -25,6 +29,9 @@
     },
     "typesVersions": {
         "*": {
+            "style": [
+                "dist/style/index.d.ts"
+            ],
             "config": [
                 "dist/config/index.d.ts"
             ]
@@ -39,5 +46,8 @@
         "tsup": "^6.5.0",
         "typescript": "^4.9.4",
         "vitest": "^0.27.3"
+    },
+    "dependencies": {
+        "@splitflow/core": "^1.3.3"
     }
 }
