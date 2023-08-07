@@ -1,7 +1,9 @@
-import { merge, sort } from '@splitflow/core/utils/object'
+import { merge, sort } from '@splitflow/core/utils'
 import { SplitflowStyleDef, StyleNode } from './style'
 
 export function defToStyle(componentName: string, styleDef: SplitflowStyleDef): StyleNode {
+    if (!styleDef) return undefined
+
     const fragment = { type: 'fragment' }
 
     for (const [elementName, definition] of Object.entries(styleDef)) {
@@ -19,11 +21,12 @@ export function defToStyle(componentName: string, styleDef: SplitflowStyleDef): 
             fragment[definitionName(componentName, elementName)] = defaultDefinition
         }
     }
-
     return fragment as any
 }
 
 export function* styleToDef(root: StyleNode): Generator<[string, SplitflowStyleDef]> {
+    if (!root) return
+
     let styleDef: SplitflowStyleDef | null = null
     let styleComponentName: string | null = null
 
@@ -46,7 +49,7 @@ export function* styleToDef(root: StyleNode): Generator<[string, SplitflowStyleD
         if (variantPattern) {
             styleDef[elementName][variantPattern] = definition
         } else {
-            merge(styleDef[elementName], definition)
+            styleDef[elementName] = merge(styleDef[elementName], definition)
         }
     }
 

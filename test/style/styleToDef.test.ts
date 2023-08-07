@@ -42,7 +42,7 @@ describe('styledef', () => {
     describe('styleToDef', () => {
         it('with variants', () => {
             const result = [...styleToDef(style)]
-
+console.log(JSON.stringify(result))
             expect(result).to.have.length(1)
             expect(result[0][0]).to.equal('Component')
             expect(result[0][1]).to.deep.equal(styleDef)

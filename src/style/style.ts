@@ -91,18 +91,25 @@ export const StyleSchema = {
         all: number({ min: 0, max: 100, step: 1, precision: 0, unit: 'rem', nullable: true })
     },
     corner: {
-        all: number({ min: 0, max: 10, step: 0.25, precision: 2, unit: 'rem' })
+        all: number({ min: 0, max: 10, step: 0.25, precision: 2, unit: 'rem', nullable: true })
     },
     border: {
         tickness: number({ min: 0, max: 10, step: 0.1, precision: 1, unit: 'rem', nullable: true })
     },
     size: {
-        all: number({ min: 0, max: 100, step: 1, precision: 2, unit: 'rem' }),
-        aspectRatio: number({ min: 0, max: 10, step: 0.1, precision: 1, unit: '/1' })
+        all: number({ min: 0, max: 100, step: 1, precision: 2, unit: 'rem', nullable: true }),
+        aspectRatio: number({
+            min: 0,
+            max: 10,
+            step: 0.1,
+            precision: 1,
+            unit: '/1',
+            nullable: true
+        })
     },
     typography: {
         fontSize: number({ min: 0, max: 10, step: 0.25, precision: 2, unit: 'rem' }),
-        fontWeight: enumeration([100, 200, 300, 400, 500, 600, 700, 800, 900]),
+        fontWeight: enumeration([null, 100, 200, 300, 400, 500, 600, 700, 800, 900]),
         textTransform: enumeration([null, 'uppercase', 'lowercase', 'capitalize'])
     },
     layout: {
@@ -126,13 +133,15 @@ export const StyleSchema = {
     }
 }
 
-export const featureNames = [
-    'padding',
-    'corner',
-    'border',
-    'background',
-    'size',
-    'typography',
-    'layout',
-    'position'
-]
+export const StyleDefault = {
+    layout: {
+        direction: 'column',
+        mainAxisAlignment: 'start',
+        crossAxisAlignment: 'stretch',
+        spacing: 1
+    },
+    position: {
+        mainAxisAlignment: 'shrink',
+        crossAxisAlignment: 'stretch'
+    }
+}

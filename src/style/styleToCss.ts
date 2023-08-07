@@ -1,4 +1,4 @@
-import { clean, isNotEmpty } from '@splitflow/core/utils/object'
+import { clean, isNotEmpty } from '@splitflow/core/utils'
 import {
     BackgroundNode,
     BorderNode,
