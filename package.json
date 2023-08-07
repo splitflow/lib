@@ -1,0 +1,53 @@
+{
+    "name": "@splitflow/lib",
+    "version": "1.0.0",
+    "description": "Splitflow lib package",
+    "author": "team@splitflow.io",
+    "homepage": "https://github.com/splitflow/lib#readme",
+    "bugs": {
+        "url": "https://github.com/splitflow/lib/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/splitflow/lib.git"
+    },
+    "type": "module",
+    "files": [
+        "dist/**/*.js",
+        "dist/**/*.cjs",
+        "dist/**/*.d.ts"
+    ],
+    "exports": {
+        "./style": {
+            "import": "./dist/style/index.js",
+            "require": "./dist/style/index.cjs"
+        },
+        "./config": {
+            "import": "./dist/config/index.js",
+            "require": "./dist/config/index.cjs"
+        }
+    },
+    "typesVersions": {
+        "*": {
+            "style": [
+                "dist/style/index.d.ts"
+            ],
+            "config": [
+                "dist/config/index.d.ts"
+            ]
+        }
+    },
+    "scripts": {
+        "build": "tsup",
+        "build:watch": "tsup --watch",
+        "test": "vitest"
+    },
+    "devDependencies": {
+        "tsup": "^6.5.0",
+        "typescript": "^4.9.4",
+        "vitest": "^0.27.3"
+    },
+    "dependencies": {
+        "@splitflow/core": "^2.0.0"
+    }
+}
