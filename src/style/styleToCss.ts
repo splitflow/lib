@@ -14,6 +14,12 @@ import {
 import { Color } from './theme'
 
 export class StyleToCSSVisitor {
+    constructor(discriminator?: string) {
+        this.discriminator = discriminator
+    }
+
+    discriminator: string
+
     root(root: StyleNode) {
         if (!root) return {}
 
@@ -21,7 +27,7 @@ export class StyleToCSSVisitor {
             if (definitionName === 'type') return rules
 
             for (const [selectorText, style] of this.definition(definition)) {
-                rules[selector(definitionName, selectorText)] = style
+                rules[selector(definitionName, selectorText, this.discriminator)] = style
             }
             return rules
         }, {})
@@ -203,7 +209,7 @@ function any(object: object) {
     return property
 }
 
-function selector(definitionName: string, selectorText: string) {
+function selector(definitionName: string, selectorText: string, discriminator: string) {
     const [componentToken, elementToken] = definitionName.split('-')
     const [componentName, componentVariant] = componentToken.split(':')
     const [elementName, elementVariant] = elementToken.split(':')
@@ -211,12 +217,24 @@ function selector(definitionName: string, selectorText: string) {
     let selector = []
 
     if (elementName === 'root' && componentVariant) {
-        selector.push(elementSelector(componentName) + variantSelector(componentVariant))
+        selector.push(
+            elementSelector(componentName, 'root', discriminator) +
+                variantSelector(componentVariant)
+        )
     } else if (componentVariant) {
-        selector.push(elementSelector(componentName) + variantSelector(componentVariant))
-        selector.push(elementSelector(componentName, elementName) + variantSelector(elementVariant))
+        selector.push(
+            elementSelector(componentName, 'root', discriminator) +
+                variantSelector(componentVariant)
+        )
+        selector.push(
+            elementSelector(componentName, elementName, discriminator) +
+                variantSelector(elementVariant)
+        )
     } else {
-        selector.push(elementSelector(componentName, elementName) + variantSelector(elementVariant))
+        selector.push(
+            elementSelector(componentName, elementName, discriminator) +
+                variantSelector(elementVariant)
+        )
     }
 
     if (selectorText) {
@@ -226,7 +244,8 @@ function selector(definitionName: string, selectorText: string) {
     return selector.join(' ')
 }
 
-function elementSelector(componentName: string, elementName = 'root') {
+function elementSelector(componentName: string, elementName: string, discriminator: string) {
+    if (discriminator) return `.sf-${componentName}-${elementName}-${discriminator}`
     return `.sf-${componentName}-${elementName}`
 }
 
