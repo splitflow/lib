@@ -18,17 +18,67 @@
         "dist/**/*.d.ts"
     ],
     "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs",
+            "types": "./dist/index.d.ts"
+        },
+        "./account": {
+            "import": "./dist/account/index.js",
+            "require": "./dist/account/index.cjs",
+            "types": "./dist/account/index.d.ts"
+        },
+        "./design": {
+            "import": "./dist/design/index.js",
+            "require": "./dist/design/index.cjs",
+            "types": "./dist/design/index.d.ts"
+        },
+        "./editor": {
+            "import": "./dist/editor/index.js",
+            "require": "./dist/editor/index.cjs",
+            "types": "./dist/editor/index.d.ts"
+        },
+        "./orchestra": {
+            "import": "./dist/orchestra/index.js",
+            "require": "./dist/orchestra/index.cjs",
+            "types": "./dist/orchestra/index.d.ts"
+        },
+        "./project": {
+            "import": "./dist/project/index.js",
+            "require": "./dist/project/index.cjs",
+            "types": "./dist/project/index.d.ts"
+        },
         "./style": {
             "import": "./dist/style/index.js",
-            "require": "./dist/style/index.cjs"
+            "require": "./dist/style/index.cjs",
+            "types": "./dist/style/index.d.ts"
         },
         "./config": {
             "import": "./dist/config/index.js",
-            "require": "./dist/config/index.cjs"
+            "require": "./dist/config/index.cjs",
+            "types": "./dist/config/index.d.ts"
         }
     },
     "typesVersions": {
         "*": {
+            "*": [
+                "dist/index.d.ts"
+            ],
+            "account": [
+                "dist/account/index.d.ts"
+            ],
+            "design": [
+                "dist/design/index.d.ts"
+            ],
+            "editor": [
+                "dist/editor/index.d.ts"
+            ],
+            "orchestra": [
+                "dist/orchestra/index.d.ts"
+            ],
+            "project": [
+                "dist/project/index.d.ts"
+            ],
             "style": [
                 "dist/style/index.d.ts"
             ],
