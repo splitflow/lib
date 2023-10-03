@@ -2,9 +2,28 @@ export interface Action {
     type: string
 }
 
-export function actionRequest(_: string, action: Action) {
+export function actionRequest(endpoint: string, action: Action) {
+    let port
+    switch (endpoint) {
+        case 'account':
+            port = 49724
+            break
+        case 'design':
+            port = 58032
+            break
+        case 'editor':
+            port = 58043
+            break
+        case 'project':
+            port = 49724
+            break
+        case 'orca':
+            port = 49707
+            break
+    }
+
     return new Request(
-        `http://localhost:8787/${action.type}` /*`https://${endpoint}.splitflow.workers.dev/${action.type}`*/,
+        `http://localhost:${port}/${action.type}` /*`https://${endpoint}.splitflow.workers.dev/${action.type}`*/,
         {
             method: 'POST',
             headers: {
@@ -25,11 +44,14 @@ export async function getAction<A extends Action>(request: Request) {
     return action
 }
 
-export async function getResult<R>(response: Response) {
-    if (response.status === 200) {
+export async function getResult<R>(response: Response | Promise<Response>) {
+    response = await Promise.resolve(response)
+
+    if (response.status === 200 || response.status === 400) {
         return response.json() as Promise<R>
     }
-    throw new Error(response.status + '' + JSON.stringify(await response.json()))
+
+    throw new Error(response.statusText)
 }
 
 export async function errorResponse(status: number, error: string) {

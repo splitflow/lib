@@ -20,9 +20,11 @@ export interface GetProjectResult {
 
 export interface CreateModuleAction {
     type: 'create-module'
-    projectId: string
     moduleId: string
     name: string
+    projectId?: string
+    memberId?: string
+    projectName?: string
 }
 
 export interface CreateModuleResult {

@@ -4,6 +4,8 @@ import { StyleNode, ThemeNode } from "../style"
 export interface CreateDesignAction {
     type: 'create-design'
     designId?: string
+    styleJsonNode?: string
+    configJsonNode?: string
 }
 
 export interface CreateThemeAction {
@@ -14,9 +16,9 @@ export interface CreateThemeAction {
 export interface MergeNodeAction {
     type: 'merge-node'
     designId?: string
-    style?: StyleNode
-    theme?: ThemeNode
-    config?: ConfigNode
+    styleNode?: StyleNode
+    themeNode?: ThemeNode
+    configNode?: ConfigNode
 }
 
 export interface GetNodeAction {
@@ -25,6 +27,10 @@ export interface GetNodeAction {
     style?: boolean
     theme?: boolean
     config?: boolean
+}
+
+export interface GetNodeResult {
+    node: StyleNode | ThemeNode | ConfigNode
 }
 
 export interface ResetNodeAction {
