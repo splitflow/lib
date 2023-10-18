@@ -1,3 +1,5 @@
+import { Error } from "../gateway"
+
 export interface CreateProjectAction {
     type: 'create-project'
     memberId: string
@@ -5,7 +7,7 @@ export interface CreateProjectAction {
 }
 
 export interface CreateProjectResult {
-	project: Project
+	project?: Project
 }
 
 export interface GetProjectAction {
@@ -15,7 +17,20 @@ export interface GetProjectAction {
 }
 
 export interface GetProjectResult {
-	project: Project
+	project?: Project
+    error?: Error<'not-found'>
+}
+
+export interface CreateAppAction {
+    type: 'create-app'
+    appId: string
+    projectId?: string
+    name: string
+}
+
+export interface CreateAppResult {
+    app?: App
+    error?: Error<'unknown-project'>
 }
 
 export interface CreateModuleAction {
@@ -28,11 +43,17 @@ export interface CreateModuleAction {
 }
 
 export interface CreateModuleResult {
-    module: Module
+    module?: Module
+    error?: Error<'unknown-project'>
 }
 
 export interface Project {
 	projectId: string
+	name: string
+}
+
+export interface App {
+	appId: string
 	name: string
 }
 

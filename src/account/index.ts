@@ -1,3 +1,5 @@
+import { Error } from "../gateway"
+
 export interface GetAccountAction {
     type: 'get-account'
     accountId?: string
@@ -5,7 +7,8 @@ export interface GetAccountAction {
 }
 
 export interface GetAccountResult {
-    account: Account
+    account?: Account
+    error?: Error<'not-found'>
 }
 
 export interface CreateAccountAction {
@@ -15,6 +18,7 @@ export interface CreateAccountAction {
 
 export interface CreateAccountResult {
     account: Account
+    error?: Error
 }
 
 export interface Account {

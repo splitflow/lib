@@ -1,3 +1,5 @@
+import { Error } from "../gateway"
+
 export interface CreateEditorAction {
     type: 'create-editor'
     editorId: string
@@ -14,13 +16,18 @@ export interface GetNodeAction {
 }
 
 export interface GetNodeResult {
-    node: any
+    node?: any
+    error?: Error
 }
 
 export interface MergeNodeAction {
     type: 'merge-node'
     documentId: string
     node: any
+}
+
+export interface MergeNodeResult {
+    error?: Error
 }
 
 export interface Editor {

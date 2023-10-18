@@ -2,7 +2,17 @@ export interface Action {
     type: string
 }
 
+export interface Result {
+    error?: Error
+}
+
+export interface Error<C extends string = string> {
+    code: C
+    message: string
+}
+
 export function actionRequest(endpoint: string, action: Action) {
+    /*
     let port
     switch (endpoint) {
         case 'account':
@@ -21,9 +31,13 @@ export function actionRequest(endpoint: string, action: Action) {
             port = 49707
             break
     }
+    */
+
+    endpoint = endpoint === 'orca' ? 'orchestra' : endpoint
 
     return new Request(
-        `http://localhost:${port}/${action.type}` /*`https://${endpoint}.splitflow.workers.dev/${action.type}`*/,
+        //`http://localhost:${port}/${action.type}`,
+        `https://${endpoint}.splitflow.workers.dev/${action.type}`,
         {
             method: 'POST',
             headers: {
@@ -56,4 +70,10 @@ export async function getResult<R>(response: Response | Promise<Response>) {
 
 export async function errorResponse(status: number, error: string) {
     return new Response(JSON.stringify({ error }), { status })
+}
+
+export function firstError(results: Result[]): Result {
+    for (const result of results) {
+        if (result?.error) return result
+    }
 }

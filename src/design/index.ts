@@ -1,4 +1,5 @@
 import { ConfigNode } from "../config"
+import { Error } from "../gateway"
 import { StyleNode, ThemeNode } from "../style"
 
 export interface CreateDesignAction {
@@ -21,6 +22,10 @@ export interface MergeNodeAction {
     configNode?: ConfigNode
 }
 
+export interface MergeNodeResult {
+    error?: Error<'not-found'>
+}
+
 export interface GetNodeAction {
     type: 'get-node'
     designId?: string
@@ -30,7 +35,8 @@ export interface GetNodeAction {
 }
 
 export interface GetNodeResult {
-    node: StyleNode | ThemeNode | ConfigNode
+    node?: StyleNode | ThemeNode | ConfigNode
+    error?: Error<'not-found'>
 }
 
 export interface ResetNodeAction {
@@ -39,4 +45,8 @@ export interface ResetNodeAction {
     styleChecksum?: string
     themeChecksum?: string
     configChecksum?: string
+}
+
+export interface ResetNodeResult {
+    error?: Error<'not-found' | 'invalid-checksum'>
 }
