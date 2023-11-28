@@ -88,7 +88,7 @@ export interface PositionNode {
 
 export const StyleSchema = {
     padding: {
-        all: number({ min: 0, max: 100, step: 1, precision: 0, unit: 'rem', nullable: true })
+        all: number({ min: 0, max: 100, step: 1, precision: 1, unit: 'rem', nullable: true })
     },
     corner: {
         all: number({ min: 0, max: 10, step: 0.25, precision: 2, unit: 'rem', nullable: true })
@@ -108,7 +108,14 @@ export const StyleSchema = {
         })
     },
     typography: {
-        fontSize: number({ min: 0, max: 10, step: 0.25, precision: 2, unit: 'rem' }),
+        fontSize: number({
+            min: 0,
+            max: 10,
+            step: 0.25,
+            precision: 2,
+            unit: 'rem',
+            nullable: true
+        }),
         fontWeight: enumeration([null, 100, 200, 300, 400, 500, 600, 700, 800, 900]),
         textTransform: enumeration([null, 'uppercase', 'lowercase', 'capitalize'])
     },
