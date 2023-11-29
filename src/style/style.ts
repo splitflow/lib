@@ -61,9 +61,12 @@ export interface SizeNode {
 export interface TypographyNode {
     fontFamily?: string
     fontWeight?: number
+    fontStyle?: string
     fontSize?: number
     color?: Color
+    textAlign?: string
     textTransform?: string
+    textDecoration?: string
 }
 
 export interface LayoutNode {
@@ -117,7 +120,10 @@ export const StyleSchema = {
             nullable: true
         }),
         fontWeight: enumeration([null, 100, 200, 300, 400, 500, 600, 700, 800, 900]),
-        textTransform: enumeration([null, 'uppercase', 'lowercase', 'capitalize'])
+        fontStyle: enumeration([null, 'normal', 'italic']),
+        textTransform: enumeration([null, 'none', 'uppercase', 'lowercase', 'capitalize']),
+        textAlign: enumeration([null, 'start', 'end', 'center', 'justify']),
+        textDecoration: enumeration([null, 'underline', 'overline', 'line-through']) // none has no effect and so is not proposed
     },
     layout: {
         direction: enumeration(['row', 'column']),
