@@ -23,11 +23,6 @@
             "require": "./dist/index.cjs",
             "types": "./dist/index.d.ts"
         },
-        "./account": {
-            "import": "./dist/account/index.js",
-            "require": "./dist/account/index.cjs",
-            "types": "./dist/account/index.d.ts"
-        },
         "./auth": {
             "import": "./dist/auth/index.js",
             "require": "./dist/auth/index.cjs",
@@ -47,6 +42,11 @@
             "import": "./dist/orchestra/index.js",
             "require": "./dist/orchestra/index.cjs",
             "types": "./dist/orchestra/index.d.ts"
+        },
+        "./profile": {
+            "import": "./dist/profile/index.js",
+            "require": "./dist/profile/index.cjs",
+            "types": "./dist/profile/index.d.ts"
         },
         "./project": {
             "import": "./dist/project/index.js",
@@ -69,9 +69,6 @@
             "*": [
                 "dist/index.d.ts"
             ],
-            "account": [
-                "dist/account/index.d.ts"
-            ],
             "auth": [
                 "dist/auth/index.d.ts"
             ],
@@ -83,6 +80,9 @@
             ],
             "orchestra": [
                 "dist/orchestra/index.d.ts"
+            ],
+            "profile": [
+                "dist/profile/index.d.ts"
             ],
             "project": [
                 "dist/project/index.d.ts"
