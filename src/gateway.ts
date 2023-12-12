@@ -1,3 +1,5 @@
+import { match, pathname } from '@splitflow/core/pathname'
+
 export interface Action {
     type: string
 }
@@ -9,6 +11,54 @@ export interface Result {
 export interface Error<C extends string = string> {
     code: C
     message: string
+}
+
+interface ActionEndpoint<A extends Action> {
+    actionType: string
+    pathname: string
+    subdomain: string
+    getAction?: (action: A) => A
+}
+
+export function actionRequestX<A extends Action>(action: A, endpoint: ActionEndpoint<A>) {
+    if (action.type !== endpoint.actionType) throw new Error()
+
+    const subdomain = endpoint.subdomain
+    const body = { ...action }
+    const _pathname = pathname(endpoint.pathname, body, { consume: true })
+
+    if (_pathname) {
+        return new Request(
+            //`http://localhost:${port}/${action.type}`,
+            `https://${subdomain}.splitflow.workers.dev${_pathname}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            }
+        )
+    }
+    throw new Error()
+}
+
+export async function getActionX<A extends Action>(request: Request, endpoint: ActionEndpoint<A>) {
+    const url = new URL(request.url)
+    const pathParams = match(endpoint.pathname, url.pathname)
+
+    if (pathParams) {
+        const type = endpoint.actionType
+        const body = await request.json()
+
+        return {
+            ...body,
+            ...pathParams,
+            type
+        } as A
+    }
+
+    throw new Error()
 }
 
 export function actionRequest(endpoint: string, action: Action) {

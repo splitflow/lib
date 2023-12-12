@@ -4,6 +4,7 @@ export default defineConfig({
   entry: [
     "src/index.ts",
     "src/account/index.ts",
+    "src/auth/index.ts",
     "src/design/index.ts",
     "src/editor/index.ts",
     "src/orchestra/index.ts",

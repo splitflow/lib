@@ -28,6 +28,11 @@
             "require": "./dist/account/index.cjs",
             "types": "./dist/account/index.d.ts"
         },
+        "./auth": {
+            "import": "./dist/auth/index.js",
+            "require": "./dist/auth/index.cjs",
+            "types": "./dist/auth/index.d.ts"
+        },
         "./design": {
             "import": "./dist/design/index.js",
             "require": "./dist/design/index.cjs",
@@ -67,6 +72,9 @@
             "account": [
                 "dist/account/index.d.ts"
             ],
+            "auth": [
+                "dist/auth/index.d.ts"
+            ],
             "design": [
                 "dist/design/index.d.ts"
             ],
@@ -98,6 +106,6 @@
         "vitest": "^0.27.3"
     },
     "dependencies": {
-        "@splitflow/core": "^2.1.0"
+        "@splitflow/core": "file:../core"
     }
 }
