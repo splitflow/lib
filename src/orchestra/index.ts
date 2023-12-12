@@ -1,6 +1,6 @@
 import { Editor } from '../editor'
 import { Error } from '../gateway'
-import { App, Project } from '../project'
+import { App, Account } from '../account'
 
 export interface CreateAppAction {
     type: 'create-app'
@@ -29,14 +29,14 @@ export interface CreateEditorResult {
     error?: Error
 }
 
-export interface CreateProjectAction {
-    type: 'create-project'
+export interface CreateAccountAction {
+    type: 'create-account'
     memberId: string
     name: string
 }
 
-export interface CreateProjectResult {
-    project?: Project
+export interface CreateAccountResult {
+    account?: Account
     error?: Error
 }
 

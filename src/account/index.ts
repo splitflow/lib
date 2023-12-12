@@ -1,54 +1,54 @@
 import { Error } from "../gateway"
 
-export interface CreateProjectAction {
-    type: 'create-project'
+export interface CreateAccountAction {
+    type: 'create-account'
     memberId: string
     name: string
 }
 
-export interface CreateProjectResult {
-	project?: Project
+export interface CreateAccountResult {
+	account?: Account
 }
 
-export interface GetProjectAction {
-    type: 'get-project'
+export interface GetAccountAction {
+    type: 'get-account'
     memberId: string
     name: string
 }
 
-export interface GetProjectResult {
-	project?: Project
+export interface GetAccountResult {
+	account?: Account
     error?: Error<'not-found'>
 }
 
 export interface CreateAppAction {
     type: 'create-app'
     appId: string
-    projectId?: string
+    accountId?: string
     name: string
 }
 
 export interface CreateAppResult {
     app?: App
-    error?: Error<'unknown-project'>
+    error?: Error<'unknown-account'>
 }
 
 export interface CreateModuleAction {
     type: 'create-module'
     moduleId: string
     name: string
-    projectId?: string
+    accountId?: string
     memberId?: string
-    projectName?: string
+    accountName?: string
 }
 
 export interface CreateModuleResult {
     module?: Module
-    error?: Error<'unknown-project'>
+    error?: Error<'unknown-account'>
 }
 
-export interface Project {
-	projectId: string
+export interface Account {
+	accountId: string
 	name: string
 }
 
