@@ -1,33 +1,59 @@
-import { Error } from "../gateway"
+import { Error } from '../endpoint'
 
 export interface CreateEditorAction {
     type: 'create-editor'
+    accountId: string
     editorId: string
-    documentJsonNode?: string
+    documentJson?: string
 }
 
 export interface CreateEditorResult {
     editor: Editor
 }
 
-export interface GetNodeAction {
-    type: 'get-node'
+export const CreateEditorEndpoint = {
+    actionType: 'create-editor',
+    pathname: '/accounts/:accountId/createEditor',
+    subdomain: 'editor',
+    getAction: (action: CreateEditorAction) => action
+}
+
+export interface GetDocumentAction {
+    type: 'get-document'
+    accountId: string
+    editorId: string
     documentId: string
 }
 
-export interface GetNodeResult {
-    node?: any
+export interface GetDocumentResult {
+    document?: any
     error?: Error
 }
 
-export interface MergeNodeAction {
-    type: 'merge-node'
+export const GetDocumentEndpoint = {
+    actionType: 'get-document',
+    pathname: '/accounts/:accountId/editors/:editorId/documents/:documentId',
+    subdomain: 'editor',
+    getAction: (action: GetDocumentAction) => action
+}
+
+export interface MergeDocumentAction {
+    type: 'merge-document'
+    accountId: string
+    editorId: string
     documentId: string
-    node: any
+    document: any
 }
 
-export interface MergeNodeResult {
+export interface MergeDocumentResult {
     error?: Error
+}
+
+export const MergeDocumentEndpoint = {
+    actionType: 'merge-document',
+    pathname: '/accounts/:accountId/editors/:editorId/documents/:documentId/merge',
+    subdomain: 'editor',
+    getAction: (action: MergeDocumentAction) => action
 }
 
 export interface Editor {
