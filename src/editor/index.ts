@@ -13,7 +13,7 @@ export interface CreateEditorResult {
 
 export const CreateEditorEndpoint = {
     actionType: 'create-editor',
-    pathname: '/accounts/:accountId/createEditor',
+    pathname: '/accounts/:accountId/create-editor',
     subdomain: 'editor',
     getAction: (action: CreateEditorAction) => action
 }
@@ -27,7 +27,7 @@ export interface GetDocumentAction {
 
 export interface GetDocumentResult {
     document?: any
-    error?: Error
+    error?: Error<'unknown-document'>
 }
 
 export const GetDocumentEndpoint = {
@@ -46,7 +46,7 @@ export interface MergeDocumentAction {
 }
 
 export interface MergeDocumentResult {
-    error?: Error
+    error?: Error<'unknown-document'>
 }
 
 export const MergeDocumentEndpoint = {

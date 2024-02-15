@@ -19,20 +19,26 @@ export interface ActionEndpoint<A extends Action> {
     subdomain: string
     method?: string
     authorization?: boolean
+    credentials?: boolean
     getAction?: (action: A) => A
+    getRequest?: (request: Request) => Request
 }
 
-export function actionRequestX<A extends Action>(action: A, endpoint: ActionEndpoint<A>) {
+export function actionRequestX<A extends Action>(
+    action: A,
+    endpoint: ActionEndpoint<A>,
+    request?: Request
+) {
     if (action.type !== endpoint.actionType) throw new Error('action type missmatch')
 
     const subdomain = endpoint.subdomain
     const { type, ...body } = action
     const _pathname = pathname(endpoint.pathname, body, { consume: true })
 
-    let port
+    let port: number
     switch (subdomain) {
         case 'account':
-            port = 49724
+            port = 49738
             break
         case 'auth':
             port = 8787
@@ -52,23 +58,26 @@ export function actionRequestX<A extends Action>(action: A, endpoint: ActionEndp
     }
 
     if (_pathname) {
-        let request: Request
+        let _request: Request
+        let init: RequestInit = {}
+
+        if (endpoint.credentials ?? false) {
+            init.credentials = 'include'
+        }
 
         if (endpoint.method === 'GET') {
-            request = new Request(
+            _request = new Request(
                 `http://localhost:${port}${_pathname}${search(body)}`,
-                //`https://${subdomain}.splitflow.workers.dev${_pathname}`
-                {
-                    credentials: 'include'
-                }
+                //input = `https://${subdomain}.splitflow.workers.dev${_pathname}`
+                init
             )
         } else {
-            request = new Request(
+            _request = new Request(
                 `http://localhost:${port}${_pathname}`,
-                //`https://${subdomain}.splitflow.workers.dev${_pathname}`,
+                //input = `https://${subdomain}.splitflow.workers.dev${_pathname}`
                 {
+                    ...init,
                     method: 'POST',
-                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -78,9 +87,12 @@ export function actionRequestX<A extends Action>(action: A, endpoint: ActionEndp
         }
 
         if (endpoint.authorization ?? true) {
-            request.headers.set('authorization', 'bearer TOKEN')
+            _request.headers.set(
+                'authorization',
+                request?.headers.get('authorization') ?? 'bearer TOKEN'
+            )
         }
-        return request
+        return endpoint.getRequest?.(_request) ?? _request
     }
     throw new Error(`unable to create request from action ${action.type}`)
 }
@@ -93,7 +105,7 @@ export async function getActionX<A extends Action>(request: Request, endpoint: A
 
     if (pathParams) {
         const type = endpoint.actionType
-        
+
         let body: any
         if (request.method === 'POST') {
             body = await request.json()

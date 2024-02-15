@@ -1,4 +1,4 @@
-import {  Error } from '../endpoint'
+import { Error } from '../endpoint'
 
 export interface GetAccessTokenAction {
     type: 'get-access-token'
@@ -14,6 +14,8 @@ export const GetAccessTokenEndpoint = {
     pathname: '/access-token',
     subdomain: 'auth',
     method: 'GET',
+    authorization: false,
+    credentials: true,
     getAction: (action: GetAccessTokenAction) => action
 }
 
@@ -47,6 +49,7 @@ export const SignInEndpoint = {
     pathname: '/sign-in',
     subdomain: 'auth',
     authorization: false,
+    credentials: true,
     getAction: (action: SignInAction) => action
 }
 
@@ -77,7 +80,21 @@ export const SignUpEndpoint = {
     pathname: '/sign-up',
     subdomain: 'auth',
     authorization: false,
+    credentials: true,
     getAction: (action: SignUpAction) => action
+}
+
+export interface LogoutAction {
+    type: 'logout'
+}
+
+export const LogoutEndpoint = {
+    actionType: 'logout',
+    pathname: '/logout',
+    subdomain: 'auth',
+    authorization: false,
+    credentials: true,
+    getAction: (action: LogoutAction) => action
 }
 
 export interface GetUserAction {
@@ -94,7 +111,43 @@ export const GetUserEndpoint = {
     subdomain: 'auth',
     method: 'GET',
     authorization: false,
+    credentials: true,
     getAction: (action: GetUserAction) => action
+}
+
+export interface GrantUserAuthAction {
+    type: 'grant-user-auth'
+    accountId: string
+    userId: string
+    role: string
+}
+
+export interface GrantUserAuthResult {
+    error?: Error<'unknown-user'>
+}
+
+export const GrantUserAuthEndpoint = {
+    actionType: 'grant-user-auth',
+    pathname: '/accounts/:accountId/grant-user-auth',
+    subdomain: 'auth',
+    getAction: (action: GrantUserAuthAction) => action
+}
+
+export interface GrantSuperuserAuthAction {
+    type: 'grant-superuser-auth'
+    accountId: string
+    userId: string
+}
+
+export interface GrantSuperuserAuthResult {
+    error?: Error<'unknown-user'>
+}
+
+export const GrantSuperuserAuthEndpoint = {
+    actionType: 'grant-superuser-auth',
+    pathname: '/users/:userId/grant-superuser-auth',
+    subdomain: 'auth',
+    getAction: (action: GrantSuperuserAuthAction) => action
 }
 
 export interface User {

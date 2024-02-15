@@ -20,12 +20,13 @@ export const CreateDesignEndpoint = {
 
 export interface CreateThemeAction {
     type: 'create-theme'
+    userId: string
     accountId?: string
 }
 
 export const CreateThemeEndpoint = {
     actionType: 'create-theme',
-    pathname: '/accounts/:accountId/create-theme',
+    pathname: '/users/:userId/create-theme',
     subdomain: 'design',
     getAction: (action: CreateThemeAction) => action
 }
@@ -42,13 +43,14 @@ export interface GetDesignAction {
 export interface GetDesignResult {
     style?: StyleNode
     config?: ConfigNode
-    error?: Error<'not-found'>
+    error?: Error<'unknown-design'>
 }
 
 export const GetDesignEndpoint = {
     actionType: 'get-design',
     pathname: '/accounts/:accountId/:podType/:podId/design',
     subdomain: 'design',
+    method: 'GET',
     getAction: (action: GetDesignAction) => action
 }
 
@@ -59,13 +61,14 @@ export interface GetThemeAction {
 
 export interface GetThemeResult {
     theme?: ThemeNode
-    error?: Error<'not-found'>
+    error?: Error<'unknown-theme'>
 }
 
 export const GetThemeEndpoint = {
     actionType: 'get-theme',
     pathname: '/accounts/:accountId/theme',
     subdomain: 'design',
+    method: 'GET',
     getAction: (action: GetThemeAction) => action
 }
 
@@ -79,7 +82,7 @@ export interface MergeDesignAction {
 }
 
 export interface MergeDesignResult {
-    error?: Error<'not-found'>
+    error?: Error<'unknown-design'>
 }
 
 export const MergeDesignEndpoint = {
@@ -96,7 +99,7 @@ export interface MergeThemeAction {
 }
 
 export interface MergeThemeResult {
-    error?: Error<'not-found'>
+    error?: Error<'unknown-theme'>
 }
 
 export const MergeThemeEndpoint = {
@@ -116,7 +119,7 @@ export interface ResetDesignAction {
 }
 
 export interface ResetDesignResult {
-    error?: Error<'not-found' | 'invalid-checksum'>
+    error?: Error<'unknown-design' | 'invalid-checksum'>
 }
 
 export const ResetDesignEndpoint = {
@@ -133,7 +136,7 @@ export interface ResetThemeAction {
 }
 
 export interface ResetThemeResult {
-    error?: Error<'not-found' | 'invalid-checksum'>
+    error?: Error<'unknown-theme' | 'invalid-checksum'>
 }
 
 export const ResetThemeEndpoint = {

@@ -13,7 +13,7 @@ export interface CreateAccountResult {
 
 export const CreateAccountEndpoint = {
     actionType: 'create-account',
-    pathname: '/create-account',
+    pathname: '/users/:userId/create-account',
     subdomain: 'account',
     getAction: (action: CreateAccountAction) => action
 }
@@ -25,13 +25,14 @@ export interface GetAccountAction {
 
 export interface GetAccountResult {
 	account?: Account
-    error?: Error<'not-found'>
+    error?: Error<'unknown-account'>
 }
 
 export const GetAccountEndpoint = {
     actionType: 'get-account',
     pathname: '/accounts/:accountId',
     subdomain: 'account',
+    method: 'GET',
     getAction: (action: GetAccountAction) => action
 }
 
@@ -41,14 +42,14 @@ export interface ListAccountsAction {
 }
 
 export interface ListAccountsResult {
-	accounts?: Account[]
-    error?: Error<'not-found'>
+	accounts: Account[]
 }
 
 export const ListAccountsEndpoint = {
     actionType: 'list-accounts',
     pathname: '/users/:userId/accounts',
     subdomain: 'account',
+    method: 'GET',
     getAction: (action: ListAccountsAction) => action
 }
 

@@ -16,7 +16,7 @@ export interface CreateAccountResult {
 
 export const CreateAccountEndpoint = {
     actionType: 'create-account',
-    pathname: '/create-account',
+    pathname: '/users/:userId/create-account',
     subdomain: 'orca',
     getAction: (action: CreateAccountAction) => action
 }
@@ -48,6 +48,17 @@ export interface CreateEditorAction {
     documentJson?: string
     styleJson?: string
     configJson?: string
+}
+
+export const CreateEditorAction = {
+    schema: {
+        type: 'object',
+        properties: {
+            accountId: { type: 'string' },
+            name: { type: 'string', minLength: 3 }
+        },
+        required: ['accountId', 'name']
+    }
 }
 
 export interface CreateEditorResult {
