@@ -152,4 +152,5 @@ export const GrantSuperuserAuthEndpoint = {
 
 export interface User {
     userId: string
+    email: string
 }

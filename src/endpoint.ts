@@ -110,7 +110,7 @@ export async function getActionX<A extends Action>(request: Request, endpoint: A
         if (request.method === 'POST') {
             body = await request.json()
         } else {
-            body = { ...url.searchParams }
+            body = Object.fromEntries(url.searchParams)
         }
 
         return {
@@ -184,8 +184,20 @@ export async function errorResponse(status: number, error: string) {
     return new Response(JSON.stringify({ error }), { status })
 }
 
-export function firstError(results: Result[]): Result {
-    for (const result of results) {
+// unable to use Record for typing https://github.com/microsoft/TypeScript/issues/15300
+export function firstError(results: Result[] | object): Error {
+    const _results = (Array.isArray(results) ? results : Object.values(results)) as Result[]
+
+    for (const result of _results) {
+        if (result?.error) return result.error
+    }
+}
+
+// unable to use Record for typing https://github.com/microsoft/TypeScript/issues/15300
+export function firstErrorResult(results: Result[] | object): Result {
+    const _results = (Array.isArray(results) ? results : Object.values(results)) as Result[]
+
+    for (const result of _results) {
         if (result?.error) return result
     }
 }

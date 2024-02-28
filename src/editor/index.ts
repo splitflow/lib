@@ -34,6 +34,7 @@ export const GetDocumentEndpoint = {
     actionType: 'get-document',
     pathname: '/accounts/:accountId/editors/:editorId/documents/:documentId',
     subdomain: 'editor',
+    method: 'GET',
     getAction: (action: GetDocumentAction) => action
 }
 
@@ -58,4 +59,5 @@ export const MergeDocumentEndpoint = {
 
 export interface Editor {
     editorId: string
+    accountId: string
 }
