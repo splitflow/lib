@@ -51,6 +51,7 @@ export const GetDesignEndpoint = {
     pathname: '/accounts/:accountId/:podType/:podId/design',
     subdomain: 'design',
     method: 'GET',
+    authorization: false,
     getAction: (action: GetDesignAction) => action
 }
 
@@ -69,6 +70,7 @@ export const GetThemeEndpoint = {
     pathname: '/accounts/:accountId/theme',
     subdomain: 'design',
     method: 'GET',
+    authorization: false,
     getAction: (action: GetThemeAction) => action
 }
 

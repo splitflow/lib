@@ -1,17 +1,43 @@
 import { Error } from '../endpoint'
 
+export interface AuthorizeDeviceAction {
+    type: 'authorize-device'
+    clientId: string
+    accountId: string
+}
+
+export interface AuthorizeDeviceResult {
+    deviceCode?: string
+    userCode?: string
+    verificationUri?: string
+    verificationUriComplete?: string
+    error?: Error<'unknown-client'>
+}
+
+export const AuthorizeDeviceEndpoint = {
+    actionType: 'authorize-device',
+    pathname: '/oauth/authorize-device',
+    subdomain: 'auth',
+    method: 'POST',
+    authorization: false,
+    getAction: (action: AuthorizeDeviceAction) => action
+}
+
 export interface GetAccessTokenAction {
     type: 'get-access-token'
+    deviceCode?: string
+    refreshToken?: string
 }
 
 export interface GetAccessTokenResult {
     accessToken?: string
-    error?: Error<'wrong-credential'>
+    refreshToken?: string
+    error?: Error<'authorization-pending' | 'expired-token'>
 }
 
 export const GetAccessTokenEndpoint = {
     actionType: 'get-access-token',
-    pathname: '/access-token',
+    pathname: '/oauth/access-token',
     subdomain: 'auth',
     method: 'GET',
     authorization: false,
@@ -115,6 +141,41 @@ export const GetUserEndpoint = {
     getAction: (action: GetUserAction) => action
 }
 
+export interface GetDeviceAuthAction {
+    type: 'get-device-auth'
+    userCode?: string
+}
+
+export interface GetDeviceAuthResult {
+    userDevice?: UserDevice
+    error?: Error<'unknown-user-code'>
+}
+
+export const GetDeviceAuthEndpoint = {
+    actionType: 'get-device-auth',
+    pathname: '/device-auth',
+    subdomain: 'auth',
+    method: 'GET',
+    getAction: (action: GetDeviceAuthAction) => action
+}
+
+export interface GrantDeviceAuthAction {
+    type: 'grant-device-auth'
+    accountId: string
+    userCode: string
+}
+
+export interface GrantDeviceAuthResult {
+    error?: Error<'unknown-user-code'>
+}
+
+export const GrantDeviceAuthEndpoint = {
+    actionType: 'grant-device-auth',
+    pathname: '/accounts/:accountId/grant-device-auth',
+    subdomain: 'auth',
+    getAction: (action: GrantDeviceAuthAction) => action
+}
+
 export interface GrantUserAuthAction {
     type: 'grant-user-auth'
     accountId: string
@@ -153,4 +214,10 @@ export const GrantSuperuserAuthEndpoint = {
 export interface User {
     userId: string
     email: string
+}
+
+export interface UserDevice {
+    accountId: string
+    userCode: string
+    name: string
 }
