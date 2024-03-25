@@ -1,6 +1,6 @@
 {
     "name": "@splitflow/lib",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "Splitflow lib package",
     "author": "team@splitflow.io",
     "homepage": "https://github.com/splitflow/lib#readme",
@@ -9,7 +9,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/splitflow/lib.git"
+        "url": "git+https://github.com/splitflow/lib.git"
     },
     "type": "module",
     "files": [
@@ -28,6 +28,11 @@
             "require": "./dist/account/index.cjs",
             "types": "./dist/account/index.d.ts"
         },
+        "./auth": {
+            "import": "./dist/auth/index.js",
+            "require": "./dist/auth/index.cjs",
+            "types": "./dist/auth/index.d.ts"
+        },
         "./design": {
             "import": "./dist/design/index.js",
             "require": "./dist/design/index.cjs",
@@ -43,10 +48,10 @@
             "require": "./dist/orchestra/index.cjs",
             "types": "./dist/orchestra/index.d.ts"
         },
-        "./project": {
-            "import": "./dist/project/index.js",
-            "require": "./dist/project/index.cjs",
-            "types": "./dist/project/index.d.ts"
+        "./profile": {
+            "import": "./dist/profile/index.js",
+            "require": "./dist/profile/index.cjs",
+            "types": "./dist/profile/index.d.ts"
         },
         "./style": {
             "import": "./dist/style/index.js",
@@ -67,6 +72,9 @@
             "account": [
                 "dist/account/index.d.ts"
             ],
+            "auth": [
+                "dist/auth/index.d.ts"
+            ],
             "design": [
                 "dist/design/index.d.ts"
             ],
@@ -76,8 +84,8 @@
             "orchestra": [
                 "dist/orchestra/index.d.ts"
             ],
-            "project": [
-                "dist/project/index.d.ts"
+            "profile": [
+                "dist/profile/index.d.ts"
             ],
             "style": [
                 "dist/style/index.d.ts"
@@ -93,11 +101,13 @@
         "test": "vitest"
     },
     "devDependencies": {
+        "ajv": "^8.12.0",
+        "ajv-formats": "^2.1.1",
         "tsup": "^6.5.0",
         "typescript": "^4.9.4",
         "vitest": "^0.27.3"
     },
     "dependencies": {
-        "@splitflow/core": "^2.1.0"
+        "@splitflow/core": "^2.2.0"
     }
 }

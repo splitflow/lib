@@ -1,11 +1,30 @@
 import { Editor } from '../editor'
-import { Error } from '../gateway'
-import { App, Project } from '../project'
+import { Error } from '../endpoint'
+import { App, Account } from '../account'
+
+export interface CreateAccountAction {
+    type: 'create-account'
+    accountId: string
+    userId: string
+    name: string
+}
+
+export interface CreateAccountResult {
+    account?: Account
+    error?: Error
+}
+
+export const CreateAccountEndpoint = {
+    actionType: 'create-account',
+    pathname: '/users/:userId/create-account',
+    subdomain: 'orca',
+    getAction: (action: CreateAccountAction) => action
+}
 
 export interface CreateAppAction {
     type: 'create-app'
+    accountId: string
     appId: string
-    projectId: string
     name: string
 }
 
@@ -14,14 +33,32 @@ export interface CreateAppResult {
     error?: Error
 }
 
+export const CreateAppEndpoint = {
+    actionType: 'create-app',
+    pathname: '/accounts/:accountId/create-app',
+    subdomain: 'orca',
+    getAction: (action: CreateAppAction) => action
+}
+
 export interface CreateEditorAction {
     type: 'create-editor'
-    accountEmail: string
+    accountId: string
     editorId: string
-    editorName: string
-    documentJsonNode?: string
-    styleJsonNode?: string
-    configJsonNode?: string
+    name: string
+    documentJson?: string
+    styleJson?: string
+    configJson?: string
+}
+
+export const CreateEditorAction = {
+    schema: {
+        type: 'object',
+        properties: {
+            accountId: { type: 'string' },
+            name: { type: 'string', minLength: 3 }
+        },
+        required: ['accountId', 'name']
+    }
 }
 
 export interface CreateEditorResult {
@@ -29,15 +66,11 @@ export interface CreateEditorResult {
     error?: Error
 }
 
-export interface CreateProjectAction {
-    type: 'create-project'
-    memberId: string
-    name: string
-}
-
-export interface CreateProjectResult {
-    project?: Project
-    error?: Error
+export const CreateEditorEndpoint = {
+    actionType: 'create-editor',
+    pathname: '/accounts/:accountId/create-editor',
+    subdomain: 'orca',
+    getAction: (action: CreateEditorAction) => action
 }
 
 export interface CreateUserAction {
