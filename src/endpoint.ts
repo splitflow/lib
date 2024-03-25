@@ -31,7 +31,7 @@ export function actionRequestX<A extends Action>(
 ) {
     if (action.type !== endpoint.actionType) throw new Error('action type missmatch')
 
-    const subdomain = endpoint.subdomain
+    let subdomain = endpoint.subdomain
     const { type, ...body } = action
     const _pathname = pathname(endpoint.pathname, body, { consume: true })
 
@@ -58,6 +58,8 @@ export function actionRequestX<A extends Action>(
             break
     }
     */
+
+    subdomain = subdomain === 'orca' ? 'orchestra' : subdomain
 
     if (_pathname) {
         let _request: Request
