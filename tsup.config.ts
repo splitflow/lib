@@ -1,5 +1,4 @@
 import { defineConfig } from 'tsup'
-import ajv from '@offen/esbuild-plugin-jsonschema'
 
 export default defineConfig({
     entry: [
@@ -15,8 +14,5 @@ export default defineConfig({
     ],
     dts: true,
     sourcemap: true,
-    format: ['cjs', 'esm'],
-    esbuildPlugins: [
-        ajv({secure: false, /*filter: /\.json\?ajv$/*/})
-    ]
+    format: ['cjs', 'esm']
 })

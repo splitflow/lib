@@ -51,9 +51,6 @@ export interface SignInAction {
     password: string
 }
 
-export { default as SignInActionSchema } from './sign-in-action.json'
-export { default as SignInActionValidator } from './sign-in-action.schema.json'
-
 export const SignInAction = {
     schema: {
         type: 'object',
@@ -123,22 +120,23 @@ export const LogoutEndpoint = {
     getAction: (action: LogoutAction) => action
 }
 
-export interface GetUserAction {
-    type: 'get-user'
+export interface GetAuthAction {
+    type: 'get-auth'
 }
 
-export interface GetUserResult {
+export interface GetAuthResult {
     user?: User
+    client?: Client
 }
 
-export const GetUserEndpoint = {
-    actionType: 'get-user',
-    pathname: '/user',
+export const GetAuthEndpoint = {
+    actionType: 'get-auth',
+    pathname: '/auth',
     subdomain: 'auth',
     method: 'GET',
     authorization: false,
     credentials: true,
-    getAction: (action: GetUserAction) => action
+    getAction: (action: GetAuthAction) => action
 }
 
 export interface GetDeviceAuthAction {
@@ -214,6 +212,11 @@ export const GrantSuperuserAuthEndpoint = {
 export interface User {
     userId: string
     email: string
+}
+
+export interface Client {
+    clientId: string
+    name: string
 }
 
 export interface UserDevice {

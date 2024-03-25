@@ -18,6 +18,26 @@ export const CreateEditorEndpoint = {
     getAction: (action: CreateEditorAction) => action
 }
 
+export interface CreateDocumentAction {
+    type: 'create-document'
+    accountId: string
+    editorId: string
+    documentId: string
+}
+
+export interface CreateDocumentResult {
+    document?: Document
+    error?: Error<'unknown-editor'>
+}
+
+export const CreateDocumentEndpoint = {
+    actionType: 'create-editor',
+    pathname: '/accounts/:accountId/editors/:editorId/create-document',
+    subdomain: 'editor',
+    authorization: false,
+    getAction: (action: CreateDocumentAction) => action
+}
+
 export interface GetDocumentAction {
     type: 'get-document'
     accountId: string
@@ -35,7 +55,27 @@ export const GetDocumentEndpoint = {
     pathname: '/accounts/:accountId/editors/:editorId/documents/:documentId',
     subdomain: 'editor',
     method: 'GET',
+    authorization: false,
     getAction: (action: GetDocumentAction) => action
+}
+
+export interface ListDocumentsAction {
+    type: 'list-documents'
+    accountId: string
+    editorId: string
+}
+
+export interface ListDocumentsResult {
+    documents?: any[]
+}
+
+export const ListDocumentsEndpoint = {
+    actionType: 'list-documents',
+    pathname: '/accounts/:accountId/editors/:editorId/documents',
+    subdomain: 'editor',
+    method: 'GET',
+    authorization: false,
+    getAction: (action: ListDocumentsAction) => action
 }
 
 export interface MergeDocumentAction {
@@ -54,10 +94,17 @@ export const MergeDocumentEndpoint = {
     actionType: 'merge-document',
     pathname: '/accounts/:accountId/editors/:editorId/documents/:documentId/merge',
     subdomain: 'editor',
+    authorization: false,
     getAction: (action: MergeDocumentAction) => action
 }
 
 export interface Editor {
+    editorId: string
+    accountId: string
+}
+
+export interface Document {
+    documentId: string
     editorId: string
     accountId: string
 }

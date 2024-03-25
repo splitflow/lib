@@ -101,10 +101,8 @@
         "test": "vitest"
     },
     "devDependencies": {
-        "@offen/esbuild-plugin-jsonschema": "^1.1.0",
         "ajv": "^8.12.0",
         "ajv-formats": "^2.1.1",
-        "esbuild-plugin-ajv": "file:../esbuild-plugin-ajv",
         "tsup": "^6.5.0",
         "typescript": "^4.9.4",
         "vitest": "^0.27.3"
