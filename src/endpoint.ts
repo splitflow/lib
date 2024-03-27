@@ -1,5 +1,7 @@
 import { match, pathname, search } from '@splitflow/core/pathname'
 
+const browser = typeof document !== 'undefined'
+
 export interface Action {
     type: string
 }
@@ -65,7 +67,9 @@ export function actionRequestX<A extends Action>(
         let _request: Request
         let init: RequestInit = {}
 
-        if (endpoint.credentials ?? false) {
+        if (browser && (endpoint.credentials ?? false)) {
+            // credentials is not supported in cloudflare workers
+            // only use it in a browser
             init.credentials = 'include'
         }
 
