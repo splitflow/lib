@@ -45,7 +45,7 @@ export interface CreateEditorAction {
     accountId: string
     editorId: string
     name: string
-    documentJson?: string
+    docJson?: string
     styleJson?: string
     configJson?: string
 }
