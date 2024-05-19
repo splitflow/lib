@@ -9,7 +9,9 @@ import {
     PositionNode,
     StyleNode,
     SizeNode,
-    TypographyNode
+    TypographyNode,
+    FillNode,
+    StrokeNode
 } from './style'
 import { Color } from './theme'
 
@@ -42,7 +44,9 @@ export class StyleToCSSVisitor {
             this.size(definition.size),
             this.typography(definition.typography),
             this.layout(definition.layout),
-            this.position(definition.position)
+            this.position(definition.position),
+            this.fill(definition.fill),
+            this.stroke(definition.stroke),
         ])
     }
 
@@ -175,6 +179,22 @@ export class StyleToCSSVisitor {
             }),
             width: property(position && position.mainAxisSize, '%'),
             height: property(position && position.mainAxisSize, '%')
+        })
+    }
+
+    *fill(fill: FillNode) {
+        yield* ruleEntry({
+            'fill': property(fill && fill.color, hsl)
+        })
+    }
+
+    *stroke(stroke: StrokeNode) {
+        yield* ruleEntry({
+            'stroke': property(stroke && stroke.color, hsl),
+            'stroke-width': property(stroke && stroke.width, 'rem'),
+            'stroke-dasharray': property(stroke && stroke.dashArray, 'rem'),
+            'stroke-linecap': property(stroke && stroke.lineCap),
+            'stroke-linejoin': property(stroke && stroke.lineJoin)
         })
     }
 }

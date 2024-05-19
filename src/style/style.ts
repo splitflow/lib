@@ -23,6 +23,8 @@ export interface DefinitionNode {
     typography?: TypographyNode
     layout?: LayoutNode
     position?: PositionNode
+    fill?: FillNode
+    stroke?: StrokeNode
 }
 
 export interface PaddingNode {
@@ -89,6 +91,18 @@ export interface PositionNode {
     mainAxisSize?: number
 }
 
+export interface FillNode {
+    color?: Color
+}
+
+export interface StrokeNode {
+    color?: Color
+    width?: number
+    dashArray?: number
+    lineCap?: 'round'
+    lineJoin?: 'round'
+}
+
 export const StyleSchema = {
     padding: {
         all: number({ min: 0, max: 100, step: 1, precision: 1, unit: 'rem', nullable: true })
@@ -143,6 +157,12 @@ export const StyleSchema = {
         mainAxisAlignment: enumeration(['start', 'end', 'center', 'stretch', 'shrink']),
         crossAxisAlignment: enumeration(['start', 'end', 'center', 'stretch']),
         mainAxisSize: number({ min: 0, max: 100, step: 10, precision: 0, unit: '%' })
+    },
+    stroke: {
+        width: number({ min: 0, max: 10, step: 0.1, precision: 1, unit: 'rem', nullable: true }),
+        dashArray: number({ min: 0, max: 10, step: 0.1, precision: 1, unit: 'rem', nullable: true }),
+        lineCap: enumeration([null, 'round']),
+        lineJoin: enumeration([null, 'round'])
     }
 }
 
