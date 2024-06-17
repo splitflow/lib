@@ -76,6 +76,7 @@ export interface CreateModuleAction {
     type: 'create-module'
     accountId?: string
     moduleId: string
+    moduleType: string
     name: string
 }
 
@@ -102,6 +103,8 @@ export interface App {
 }
 
 export interface Module {
+    accountId: string
 	moduleId: string
+    moduleType: string
 	name: string
 }

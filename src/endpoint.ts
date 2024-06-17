@@ -37,7 +37,7 @@ export function actionRequestX<A extends Action>(
     const { type, ...body } = action
     const _pathname = pathname(endpoint.pathname, body, { consume: true })
 
-    /*
+    
     let port: number
     switch (subdomain) {
         case 'account':
@@ -59,7 +59,7 @@ export function actionRequestX<A extends Action>(
             port = 49707
             break
     }
-    */
+    
 
     subdomain = subdomain === 'orca' ? 'orchestra' : subdomain
 
@@ -75,14 +75,14 @@ export function actionRequestX<A extends Action>(
 
         if (endpoint.method === 'GET') {
             _request = new Request(
-                //`http://localhost:${port}${_pathname}${search(body)}`,
-                `https://${subdomain}.splitflow.workers.dev${_pathname}${search(body)}`,
+                `http://localhost:${port}${_pathname}${search(body)}`,
+                //`https://${subdomain}.splitflow.workers.dev${_pathname}${search(body)}`,
                 init
             )
         } else {
             _request = new Request(
-                //`http://localhost:${port}${_pathname}`,
-                `https://${subdomain}.splitflow.workers.dev${_pathname}`,
+                `http://localhost:${port}${_pathname}`,
+                //`https://${subdomain}.splitflow.workers.dev${_pathname}`,
                 {
                     ...init,
                     method: 'POST',

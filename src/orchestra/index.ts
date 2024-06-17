@@ -1,6 +1,6 @@
 import { Editor } from '../editor'
 import { Error } from '../endpoint'
-import { App, Account } from '../account'
+import { App, Account, Module } from '../account'
 
 export interface CreateAccountAction {
     type: 'create-account'
@@ -50,17 +50,6 @@ export interface CreateEditorAction {
     configJson?: string
 }
 
-export const CreateEditorAction = {
-    schema: {
-        type: 'object',
-        properties: {
-            accountId: { type: 'string' },
-            name: { type: 'string', minLength: 3 }
-        },
-        required: ['accountId', 'name']
-    }
-}
-
 export interface CreateEditorResult {
     editor?: Editor
     error?: Error
@@ -71,6 +60,29 @@ export const CreateEditorEndpoint = {
     pathname: '/accounts/:accountId/create-editor',
     subdomain: 'orca',
     getAction: (action: CreateEditorAction) => action
+}
+
+export interface CreateModuleAction {
+    type: 'create-module'
+    accountId: string
+    moduleId: string
+    moduleType: string
+    name: string
+    themeJson?: string
+    styleJson?: string
+    configJson?: string
+}
+
+export interface CreateModuleResult {
+    module?: Module
+    error?: Error
+}
+
+export const CreateModuleEndpoint = {
+    actionType: 'create-module',
+    pathname: '/accounts/:accountId/create-module',
+    subdomain: 'orca',
+    getAction: (action: CreateModuleAction) => action
 }
 
 export interface CreateUserAction {

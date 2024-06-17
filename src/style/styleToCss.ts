@@ -107,6 +107,7 @@ export class StyleToCSSVisitor {
             'font-weight': property(typography && typography.fontWeight),
             'font-style': property(typography && typography.fontStyle),
             'text-align': property(typography && typography.textAlign),
+            'text-anchor': property(typography && typography.textAnchor),
             'text-transform': property(typography && typography.textTransform),
             'text-decoration': property(typography && typography.textDecoration),
             color: property(typography && typography.color, hsl)

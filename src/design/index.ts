@@ -7,6 +7,7 @@ export interface CreateDesignAction {
     accountId: string
     podType: string
     podId: string
+    themeJson?: string
     styleJson?: string
     configJson?: string
 }

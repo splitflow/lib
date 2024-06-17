@@ -67,6 +67,7 @@ export interface TypographyNode {
     fontSize?: number
     color?: Color
     textAlign?: string
+    textAnchor?: string //svg
     textTransform?: string
     textDecoration?: string
 }
@@ -137,6 +138,7 @@ export const StyleSchema = {
         fontStyle: enumeration([null, 'normal', 'italic']),
         textTransform: enumeration([null, 'none', 'uppercase', 'lowercase', 'capitalize']),
         textAlign: enumeration([null, 'start', 'end', 'center', 'justify']),
+        textAnchor: enumeration([null, 'start', 'end', 'middle']), // svg
         textDecoration: enumeration([null, 'underline', 'overline', 'line-through']) // none has no effect and so is not proposed
     },
     layout: {
