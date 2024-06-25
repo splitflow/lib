@@ -23,6 +23,8 @@ export interface DefinitionNode {
     typography?: TypographyNode
     layout?: LayoutNode
     position?: PositionNode
+    fill?: FillNode
+    stroke?: StrokeNode
 }
 
 export interface PaddingNode {
@@ -65,6 +67,7 @@ export interface TypographyNode {
     fontSize?: number
     color?: Color
     textAlign?: string
+    textAnchor?: string //svg
     textTransform?: string
     textDecoration?: string
 }
@@ -87,6 +90,18 @@ export interface PositionNode {
     mainAxisAlignment: 'start' | 'end' | 'center' | 'stretch' | 'shrink'
     crossAxisAlignment: 'start' | 'end' | 'center' | 'stretch'
     mainAxisSize?: number
+}
+
+export interface FillNode {
+    color?: Color
+}
+
+export interface StrokeNode {
+    color?: Color
+    width?: number
+    dashArray?: number
+    lineCap?: 'round'
+    lineJoin?: 'round'
 }
 
 export const StyleSchema = {
@@ -123,6 +138,7 @@ export const StyleSchema = {
         fontStyle: enumeration([null, 'normal', 'italic']),
         textTransform: enumeration([null, 'none', 'uppercase', 'lowercase', 'capitalize']),
         textAlign: enumeration([null, 'start', 'end', 'center', 'justify']),
+        textAnchor: enumeration([null, 'start', 'end', 'middle']), // svg
         textDecoration: enumeration([null, 'underline', 'overline', 'line-through']) // none has no effect and so is not proposed
     },
     layout: {
@@ -143,6 +159,12 @@ export const StyleSchema = {
         mainAxisAlignment: enumeration(['start', 'end', 'center', 'stretch', 'shrink']),
         crossAxisAlignment: enumeration(['start', 'end', 'center', 'stretch']),
         mainAxisSize: number({ min: 0, max: 100, step: 10, precision: 0, unit: '%' })
+    },
+    stroke: {
+        width: number({ min: 0, max: 10, step: 0.1, precision: 1, unit: 'rem', nullable: true }),
+        dashArray: number({ min: 0, max: 10, step: 0.1, precision: 1, unit: 'rem', nullable: true }),
+        lineCap: enumeration([null, 'round']),
+        lineJoin: enumeration([null, 'round'])
     }
 }
 

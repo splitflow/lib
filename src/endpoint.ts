@@ -131,53 +131,6 @@ export async function getActionX<A extends Action>(request: Request, endpoint: A
     throw new Error('unable to create action from request')
 }
 
-export function actionRequest(endpoint: string, action: Action) {
-    /*
-    let port
-    switch (endpoint) {
-        case 'account':
-            port = 49724
-            break
-        case 'design':
-            port = 58032
-            break
-        case 'editor':
-            port = 58043
-            break
-        case 'project':
-            port = 49724
-            break
-        case 'orca':
-            port = 49707
-            break
-    }
-    */
-
-    endpoint = endpoint === 'orca' ? 'orchestra' : endpoint
-
-    return new Request(
-        //`http://localhost:${port}/${action.type}`,
-        `https://${endpoint}.splitflow.workers.dev/${action.type}`,
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(action)
-        }
-    )
-}
-
-export async function getAction<A extends Action>(request: Request) {
-    const url = new URL(request.url)
-    const [, type] = url.pathname.split('/')
-
-    const action = (await request.json()) as A
-    action.type = type
-
-    return action
-}
-
 export async function getResult<R>(response: Response | Promise<Response>) {
     response = await Promise.resolve(response)
 

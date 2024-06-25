@@ -99,12 +99,12 @@ export const MergeDocumentEndpoint = {
 }
 
 export interface Editor {
-    editorId: string
     accountId: string
+    editorId: string
 }
 
 export interface Document {
-    documentId: string
-    editorId: string
     accountId: string
+    editorId: string
+    documentId: string
 }
