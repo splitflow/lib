@@ -28,6 +28,16 @@ export interface CreateAppAction {
     name: string
 }
 
+export const CreateAppAction = {
+    schema: {
+        type: 'object',
+        properties: {
+            name: { type: 'string', minLength: 3 }
+        },
+        required: ['name']
+    }
+}
+
 export interface CreateAppResult {
     app?: App
     error?: Error

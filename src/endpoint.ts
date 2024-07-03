@@ -138,7 +138,7 @@ export async function getResult<R>(response: Response | Promise<Response>) {
         return response.json() as Promise<R>
     }
 
-    throw new Error(response.statusText)
+    throw { name: 'HTTPError', message: response.statusText, statusCode: response.status }
 }
 
 export async function errorResponse(status: number, error: string) {

@@ -72,6 +72,23 @@ export const CreateAppEndpoint = {
     getAction: (action: CreateAppAction) => action
 }
 
+export interface ListAppsAction {
+    type: 'list-apps'
+    accountId: string
+}
+
+export interface ListAppsResult {
+	apps: App[]
+}
+
+export const ListAppsEndpoint = {
+    actionType: 'list-apps',
+    pathname: '/accounts/:accountId/apps',
+    subdomain: 'account',
+    method: 'GET',
+    getAction: (action: ListAppsAction) => action
+}
+
 export interface CreateModuleAction {
     type: 'create-module'
     accountId?: string
@@ -90,6 +107,23 @@ export const CreateModuleEndpoint = {
     pathname: '/accounts/:accountId/create-module',
     subdomain: 'account',
     getAction: (action: CreateModuleAction) => action
+}
+
+export interface ListModulesAction {
+    type: 'list-modules'
+    accountId: string
+}
+
+export interface ListModulesResult {
+	modules: Module[]
+}
+
+export const ListModulesEndpoint = {
+    actionType: 'list-modules',
+    pathname: '/accounts/:accountId/modules',
+    subdomain: 'account',
+    method: 'GET',
+    getAction: (action: ListModulesAction) => action
 }
 
 export interface Account {
